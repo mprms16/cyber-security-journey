@@ -72,79 +72,16 @@ The dataset includes the following real-world security scenarios:
 
 ## Queries
 
-### Query 1 — Brute Force Detection
-Identifies users with 3 or more failed login attempts in a session.
-High volume of failed logins may indicate a brute force attack targeting
-a user account.
-
-**Security relevance:** Brute force attacks are one of the most common 
-attack vectors. Early detection prevents account compromise.
-
----
-
-### Query 2 — Threat Identification by IP Address
-Identifies external IP addresses triggering high severity events.
-Filters out internal IP ranges to focus on external threats only.
-
-**Security relevance:** Building a threat watchlist of malicious IPs 
-allows analysts to recommend firewall blocks before further damage occurs.
-
----
-
-### Query 3 — After Hours Login Detection
-Identifies successful logins outside business hours (9am–5pm).
-Uses DATEPART to extract the hour from each timestamp for filtering.
-
-**Security relevance:** After hours logins may indicate compromised 
-accounts being used by attackers or insider threats operating covertly.
-
----
-
-### Query 4 — Insider Threat Detection
-Identifies users accessing restricted files they are not authorized to view.
-Uses a window function to count total restricted accesses per user.
-
-**Security relevance:** Insider threats are among the most damaging 
-security incidents. Repeated restricted file access may indicate data 
-theft or privilege abuse requiring HR escalation.
-
----
-
-### Query 5 — SQL Injection Attack Detection
-Identifies SQL injection attempts in the security logs.
-Flags common SQLi strings including OR 1=1, DROP TABLE, and UNION SELECT.
-
-**Security relevance:** SQL injection is one of the most common and 
-dangerous web attack types. Because of my SQL background I understand 
-exactly what each injection string is attempting to accomplish — making 
-severity assessment faster and more accurate.
-
----
-
-### Query 6 — Persistent Threat Tracking
-Identifies IP addresses blocked more than once across the log period.
-Uses STRING_AGG to summarize all attack types per IP in one row.
-
-**Security relevance:** Persistent threats show intent — an attacker 
-who keeps coming back despite being blocked requires permanent blacklisting 
-at the firewall level, not just individual event responses.
-
----
-
-### Query 7 — Event Count by Severity
-Generates a summary report of all events grouped by severity level.
-Includes blocked, flagged, and allowed counts plus percentage of total.
-
-**Security relevance:** SOC analysts produce shift reports like this to 
-brief incoming teams and justify security investments to management. 
-Clean, quantified summaries communicate risk faster than raw log data.
-
----
-
-### Query 8 — Full Suspicious Activity Report
-Consolidates all suspicious events into one executive summary.
-Adds two analyst generated columns — threat classification and 
-recommended action — using CASE WHEN logic applied to event patterns.
+| # | Query | Security Focus |
+|---|---|---|
+| 1 | [Brute Force Detection](#query-1--brute-force-detection) | Attack Detection |
+| 2 | [Threat Identification by IP](#query-2--threat-identification-by-ip-address) | Threat Intelligence |
+| 3 | [After Hours Login Detection](#query-3--after-hours-login-detection) | Anomaly Detection |
+| 4 | [Insider Threat Detection](#query-4--insider-threat-detection) | Insider Threat |
+| 5 | [SQL Injection Detection](#query-5--sql-injection-attack-detection) | Attack Detection |
+| 6 | [Persistent Threat Tracking](#query-6--persistent-threat-tracking) | Threat Intelligence |
+| 7 | [Event Count by Severity](#query-7--event-count-by-severity) | SOC Reporting |
+| 8 | [Full Suspicious Activity Report](#query-8--full-suspicious-activity-report) | Executive Summary |
 
 **Security relevance:** This is the deliverable a Cyber Defense Analyst 
 hands to their manager at the end of a shift. It translates raw log data 
